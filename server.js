@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const SneaksAPI = require("sneaks-api");
 const sneaks = new SneaksAPI();
+const path = require("path");
 
 // Serve static files (images)
-app.use("/Images", express.static("Images"));
+app.use("/Images", express.static(path.join(__dirname, "Images")));
 
 // Define route for fetching product prices
 app.get("/product/:productId", (req, res) => {
@@ -37,12 +38,9 @@ app.get("/product/:productId", (req, res) => {
   });
 });
 
-// Serve static files (images)
-app.use(express.static("public"));
-
-// Define a catch-all route to serve your index.html file
+// Serve your index.html file
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
