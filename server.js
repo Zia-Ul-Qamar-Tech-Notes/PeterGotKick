@@ -4,8 +4,8 @@ const SneaksAPI = require("sneaks-api");
 const sneaks = new SneaksAPI();
 const path = require("path");
 
-// Serve static files (images)
-app.use("/Images", express.static(path.join(__dirname, "Images")));
+// Serve static files (images, CSS, etc.) from the public directory
+app.use(express.static(path.join(__dirname, "public")));
 
 // Define route for fetching product prices
 app.get("/product/:productId", (req, res) => {
@@ -24,6 +24,7 @@ app.get("/product/:productId", (req, res) => {
         <html>
           <head>
             <title>Product Prices</title>
+            <link rel="stylesheet" href="/style.css">
           </head>
           <body>
             <h1>Product Prices</h1>
@@ -38,7 +39,7 @@ app.get("/product/:productId", (req, res) => {
   });
 });
 
-// Serve your index.html file
+// Handle other routes
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
