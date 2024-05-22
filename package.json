@@ -1,5 +1,16 @@
 {
   "dependencies": {
     "sneaks-api": "^1.2.3"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "petergotkicks",
+  "description": "",
+  "version": "1.0.0",
+  "main": "newTest.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
