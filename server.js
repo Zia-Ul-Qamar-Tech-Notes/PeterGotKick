@@ -7,11 +7,6 @@ const path = require("path");
 // Serve static files (images, CSS, etc.) from the public directory
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  // send the HTML file in the API response
-  res.sendFile(path.join(__dirname + "/public/index.html"));
-});
-
 // Define route for fetching product prices
 app.get("/product/:productId", (req, res) => {
   const productId = req.params.productId;
