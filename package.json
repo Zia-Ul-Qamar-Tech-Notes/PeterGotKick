@@ -8,7 +8,7 @@
   "name": "petergotkicks",
   "description": "",
   "version": "1.0.0",
-  "main": "newTest.js",
+  "main": "server.js",
   "devDependencies": {},
   "keywords": [],
   "author": "",
