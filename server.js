@@ -3,10 +3,10 @@ const app = express();
 const SneaksAPI = require("sneaks-api");
 const sneaks = new SneaksAPI();
 
-// Serve static files from the 'Images' directory
-app.use("/Images", express.static(__dirname + "/Images"));
+// Serve static files (images)
+app.use("/Images", express.static("Images"));
 
-// Route to handle product requests
+// Define route for fetching product prices
 app.get("/product/:productId", (req, res) => {
   const productId = req.params.productId;
   sneaks.getProductPrices(productId, function (err, product) {
@@ -14,26 +14,35 @@ app.get("/product/:productId", (req, res) => {
       console.error("Error getting product prices:", err);
       res.status(500).send(`Error getting product prices: ${err.message}`);
     } else {
+      // Get the price values
       const stockXPrice = product.lowestResellPrice.stockX;
       const goatPrice = product.lowestResellPrice.goat;
       const flightClubPrice = product.lowestResellPrice.flightClub;
 
       res.send(`
-                <html>
-                    <head>
-                        <title>Product Prices</title>
-                    </head>
-                    <body>
-                        <h1>Product Prices</h1>
-                        <img src="/Images/sneakers/jordan1chicago.jpg">
-                        <p>StockX Price: ${stockXPrice}+</p>
-                        <p>Goat Price: ${goatPrice}+</p>
-                        <p>Flight Club Price: ${flightClubPrice}+</p>
-                    </body>
-                </html>
-            `);
+        <html>
+          <head>
+            <title>Product Prices</title>
+          </head>
+          <body>
+            <h1>Product Prices</h1>
+            <img src="/Images/sneakers/jordan1chicago.jpg">
+            <p>StockX Price: ${stockXPrice}+</p>
+            <p>Goat Price: ${goatPrice}+</p>
+            <p>Flight Club Price: ${flightClubPrice}+</p>
+          </body>
+        </html>
+      `);
     }
   });
+});
+
+// Serve static files (images)
+app.use(express.static("public"));
+
+// Define a catch-all route to serve your index.html file
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
